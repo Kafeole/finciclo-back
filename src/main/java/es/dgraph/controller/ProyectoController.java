@@ -25,9 +25,7 @@ import es.dgraph.repository.LibRepository;
 import es.dgraph.repository.MidwayRepository;
 import es.dgraph.model.ScriptModelo;
 import es.dgraph.repository.ScriptRepository;
-import es.voxel.controlador.Normalizador;
-import es.voxel.controlador.Utils;
-import es.voxel.modelo.Modulo;
+
 import es.dgraph.model.CssModelo;
 import es.dgraph.model.DatoModelo;
 import es.dgraph.repository.CssRepository;
@@ -101,7 +99,7 @@ public class ProyectoController {
 				pro.setModeloJs(mscript);
 			}
 			
-			if(cuerpo.get("dato") != null && cuerpo.get("dato").equals("[];")) {
+			if(cuerpo.get("dato") != null && !cuerpo.get("dato").equals("[];")) {
 				String dato = (String) cuerpo.get("dato").get("1");
 				DatoModelo mdato = new DatoModelo();
 				mdato.setValor(dato);
@@ -198,12 +196,13 @@ public class ProyectoController {
 	
 	@PutMapping(path="/update/{ident}")
 	@ApiOperation(value = "Actualiza un Proyecto, búscando la coincidencia por ident y devuelve dicho Proyecto")
-	public @ResponseBody ProyectoModelo updateModulo(@PathVariable Integer ident, @RequestBody  HashMap<String, HashMap<String, String>> cuerpo) {
+	public @ResponseBody ProyectoModelo updateModulo(@PathVariable Integer ident,
+			@RequestBody  HashMap<String, HashMap<String, String>> cuerpo) {
 	
 		ProyectoModelo pro = proyectoRepository.findByIdent(ident);		
 			
 		if(cuerpo.get("html").get("1") != null) {
-			pro.setModeloHtml(htmlRepository.findById(Integer.parseInt(cuerpo.get("htmls").get("1"))).orElse(null));
+			pro.setModeloHtml(htmlRepository.findById(Integer.parseInt(cuerpo.get("html").get("1"))).orElse(null));
 		}
 		
 		if( cuerpo.get("css").get("1") != null) {	
@@ -218,9 +217,30 @@ public class ProyectoController {
 			pro.setModeloDato(datoRepository.findById(Integer.parseInt(cuerpo.get("dato").get("1"))).orElse(null));
 		}
 		
-		if( cuerpo.get("imports").size() > 0) {		
+		if( cuerpo.get("librerias").size() > 0) {		
+			ArrayList<String> libs = new ArrayList<String>();
+			for(String nombre : cuerpo.get("librerias").keySet()){
+				libs.add(cuerpo.get("librerias").get(nombre));
+			}
 			
-			
+			for(LibModelo lib : pro.getLibrerias()) {
+				String val = lib.getValor();
+				if(!libs.contains(val)) {
+					LibModelo busqueda = libRepository.findLibModeloByValor(val);
+					if(busqueda == null) {
+						busqueda = new LibModelo();
+						busqueda.setValor(val);
+						libRepository.save(busqueda);	
+					}
+					
+					MidwayModelo mid = new MidwayModelo();
+					mid.setModeloLib(busqueda);
+					mid.setModeloProyecto(pro);
+					
+					midRepository.save(mid);
+					
+				}
+			}
 		}
 			
 		
