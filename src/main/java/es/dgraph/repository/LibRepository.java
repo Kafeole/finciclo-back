@@ -10,5 +10,10 @@ public interface LibRepository extends  CrudRepository<LibModelo, Integer> {
 
 	List<LibModelo> findLibModeloByNombre(String nombre);
 	
+	LibModelo findLibModeloByValor(String valor);
+	
+	LibModelo findByIdent(Integer ident);
+	
+	
 
 }

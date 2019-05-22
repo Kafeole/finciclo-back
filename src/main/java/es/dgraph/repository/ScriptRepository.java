@@ -11,5 +11,7 @@ public interface ScriptRepository extends  CrudRepository<ScriptModelo, Integer>
 
 	ScriptModelo findScriptModeloByValor(String script);
 	
+	ScriptModelo findByIdent(Integer ident);
+	
 
 }

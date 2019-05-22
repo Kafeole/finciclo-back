@@ -13,5 +13,9 @@ public interface CssRepository extends  CrudRepository<CssModelo, Integer> {
 
 	CssModelo findCssModeloByValor(String css);
 	
+	CssModelo findByIdent(Integer ident);
+	
+	
+	
 
 }

@@ -12,6 +12,8 @@ public interface HtmlRepository extends  CrudRepository<HtmlModelo, Integer> {
 	List<HtmlModelo> findHtmlModeloByNombre(String nombre);
 
 	HtmlModelo findHtmlModeloByValor(String html);
+	
+	HtmlModelo findByIdent(Integer ident);
 
 
 }

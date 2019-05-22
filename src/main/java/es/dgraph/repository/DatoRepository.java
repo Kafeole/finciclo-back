@@ -9,6 +9,8 @@ import es.dgraph.model.DatoModelo;
 public interface DatoRepository extends  CrudRepository<DatoModelo, Integer> {
 
 	DatoModelo findDatoModeloByValor(String dato);
+	
+	DatoModelo findByIdent(Integer ident);
 
 	
 

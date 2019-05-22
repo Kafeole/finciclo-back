@@ -27,24 +27,24 @@ public class ProyectoModelo implements java.io.Serializable{
 	
 	public String nombre;
 	
-	@OneToOne(optional=false/*, cascade= CascadeType.ALL*/)
+	@OneToOne(optional=false, cascade= CascadeType.ALL)
     @JoinColumn(name = "ident_html", nullable=true)
     private HtmlModelo modeloHtml;
 	
-	@OneToOne(optional=false/*, cascade= CascadeType.ALL*/)
+	@OneToOne(optional=false, cascade= CascadeType.ALL)
     @JoinColumn(name = "ident_css", nullable=true)
     private CssModelo modeloCss;
 
-	@OneToOne(optional=false/*, cascade= CascadeType.ALL*/)
+	@OneToOne(optional=false, cascade= CascadeType.ALL)
     @JoinColumn(name = "ident_script", nullable=true)
     private ScriptModelo modeloJs;
 	
-	@OneToOne(optional=false/*, cascade= CascadeType.ALL*/)
+	@OneToOne(optional=false, cascade= CascadeType.ALL)
     @JoinColumn(name = "ident_dato", nullable=true)
     private DatoModelo modeloDato;
 	
 	
-	 @ManyToMany(cascade = CascadeType.ALL)
+	 @ManyToMany
 	    @JoinTable(name = "t_midway",
 	        joinColumns = @JoinColumn(name = "ident_proyecto", referencedColumnName = "ident"),
 	        inverseJoinColumns = @JoinColumn(name = "ident_lib", referencedColumnName = "ident"))

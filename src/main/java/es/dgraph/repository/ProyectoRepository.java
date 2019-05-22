@@ -9,5 +9,6 @@ public interface ProyectoRepository extends  CrudRepository<ProyectoModelo, Inte
 
 	List<ProyectoModelo> findProyectoModeloByNombre(String nombre);
 	
+	ProyectoModelo  findByIdent(Integer ident);
 
 }
