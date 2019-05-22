@@ -10,7 +10,7 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="t_script")
-public class ScriptModelo {
+public class ScriptModelo implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -20,4 +20,40 @@ public class ScriptModelo {
 	
 	@Type(type="text")
     public String valor;
+	
+	public ScriptModelo() {
+	}
+	
+	
+	public ScriptModelo(String nombre, String valor) {
+		super();
+		this.nombre = nombre;
+		this.valor = valor;
+	}
+	
+	public Integer getIdent() {
+		return ident;
+	}
+
+	public void setIdent(Integer ident) {
+		this.ident = ident;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getValor() {
+		return valor;
+	}
+
+	public void setValor(String valor) {
+		this.valor = valor;
+	}
+
+
 }

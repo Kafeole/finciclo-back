@@ -10,6 +10,8 @@ import es.dgraph.model.CssModelo;
 public interface CssRepository extends  CrudRepository<CssModelo, Integer> {
 
 	List<CssModelo> findCssModeloByNombre(String nombre);
+
+	CssModelo findCssModeloByValor(String css);
 	
 
 }

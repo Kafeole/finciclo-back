@@ -8,6 +8,8 @@ import es.dgraph.model.ScriptModelo;
 public interface ScriptRepository extends  CrudRepository<ScriptModelo, Integer> {
 
 	List<ScriptModelo> findScriptModeloByNombre(String nombre);
+
+	ScriptModelo findScriptModeloByValor(String script);
 	
 
 }

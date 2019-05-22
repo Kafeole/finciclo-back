@@ -21,4 +21,39 @@ public class DatoModelo implements java.io.Serializable{
 	@Type(type="text")
     public String valor;
 
+	public DatoModelo() {
+	}
+	
+	public DatoModelo(String nombre, String valor) {
+		super();
+		this.nombre = nombre;
+		this.valor = valor;
+	}
+
+	public Integer getIdent() {
+		return ident;
+	}
+
+	public void setIdent(Integer ident) {
+		this.ident = ident;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getValor() {
+		return valor;
+	}
+
+	public void setValor(String valor) {
+		this.valor = valor;
+	}
+	
+	
+
 }
