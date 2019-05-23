@@ -73,7 +73,7 @@ public class ProyectoController {
 	public @ResponseBody String addProyecto(@RequestBody HashMap<String,HashMap<String, String>> cuerpo) {
 		
 		ProyectoModelo pro = new ProyectoModelo();
-		System.out.append("hddddddddddddddd");
+		//System.out.append("hddddddddddddddd");
 		
 		if(cuerpo.get("html") != null && !cuerpo.get("html").equals("")) {
 			
@@ -159,6 +159,7 @@ public class ProyectoController {
 		
 		proyectoRepository.deleteById(ident);
 		
+		// INUTIL POR EL CASCADE AÑADIDO EN EL MODELO (SALVO MIDWAY PARA EVITAR BORRAR ENTRADA EN t_lib)
 	/*	List<MidwayModelo> midway = new ArrayList<MidwayModelo>();
 		midway = midRepository.findByModeloProyecto(proyecto);
 		if(midway != null && !midway.isEmpty() ) {
@@ -250,4 +251,6 @@ public class ProyectoController {
 		return proyectoRepository.findByIdent(ident);
 
 	}
+	
+	
 }	
