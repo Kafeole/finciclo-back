@@ -195,9 +195,46 @@ public class ProyectoController {
 		return "Eliminado";
 	}
 	
-	@PutMapping(path="/update/{ident}")
+	@PutMapping(path="/updateall/{ident}")
+	@ApiOperation(value = "Añade un Proyeto a la base de datos, devuelve una confirmación de éxito o fallo")
+	public @ResponseBody String updateProyectoAll(@PathVariable Integer ident,
+			@RequestBody HashMap<String,HashMap<String, String>> cuerpo) {
+		
+		ProyectoModelo pro = proyectoRepository.findByIdent(ident);
+
+		
+		if(cuerpo.get("html") != null && !cuerpo.get("html").equals("")) {
+			
+			String html = (String) cuerpo.get("html").get("1");
+			pro.getModeloHtml().setValor((html));
+			
+			if(cuerpo.get("css") != null) {
+				String css = (String) cuerpo.get("css").get("1");
+				pro.getModeloCss().setValor((css));
+			}
+			
+			if(cuerpo.get("script") != null) {
+				String script = (String) cuerpo.get("script").get("1");
+				pro.getModeloJs().setValor((script));
+			}
+			
+			if(cuerpo.get("dato") != null && !cuerpo.get("dato").equals("[];")) {
+				String dato = (String) cuerpo.get("dato").get("1");
+				pro.getModeloDato().setValor((dato));
+			}
+					
+			pro = proyectoRepository.save(pro);
+			
+			return "Guardado.";
+		}
+		
+		return "Fallo";
+		
+	}
+	
+	@PutMapping(path="/updatenombre/{ident}")
 	@ApiOperation(value = "Actualiza un Proyecto, búscando la coincidencia por ident y devuelve dicho Proyecto")
-	public @ResponseBody ProyectoModelo updateModulo(@PathVariable Integer ident,
+	public @ResponseBody ProyectoModelo updateProyectoNombre(@PathVariable Integer ident,
 			@RequestBody  HashMap<String, HashMap<String, String>> cuerpo) {
 	
 		ProyectoModelo pro = proyectoRepository.findByIdent(ident);		
@@ -218,7 +255,8 @@ public class ProyectoController {
 			pro.setModeloDato(datoRepository.findById(Integer.parseInt(cuerpo.get("dato").get("1"))).orElse(null));
 		}
 		
-		if( cuerpo.get("librerias").size() > 0) {		
+		// Hace que no funcione el compile al importar proyecto (probablemente por el orden en que carga los scripts)
+	/*	if( cuerpo.get("librerias").size() > 0) {		
 			ArrayList<String> libs = new ArrayList<String>();
 			for(String nombre : cuerpo.get("librerias").keySet()){
 				libs.add(cuerpo.get("librerias").get(nombre));
@@ -242,7 +280,7 @@ public class ProyectoController {
 					
 				}
 			}
-		}
+		}*/
 			
 		
 		pro.setNombre(cuerpo.get("nombre").get("1"));
