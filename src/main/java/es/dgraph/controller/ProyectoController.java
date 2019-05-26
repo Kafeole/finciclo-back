@@ -62,7 +62,7 @@ public class ProyectoController {
 	public MidwayRepository midRepository;
 	
 	@GetMapping(path="/all")
-	@ApiOperation(value = "Muestra todos los Proyectoss guardados")
+	@ApiOperation(value = "Muestra todos los Proyectos guardados")
 	public @ResponseBody Iterable<ProyectoModelo> getAllProyectos(){
 		
 		return proyectoRepository.findAll();
@@ -196,7 +196,7 @@ public class ProyectoController {
 	}
 	
 	@PutMapping(path="/updateall/{ident}")
-	@ApiOperation(value = "Añade un Proyeto a la base de datos, devuelve una confirmación de éxito o fallo")
+	@ApiOperation(value = "Añade un Proyecto a la base de datos, devuelve una confirmación de éxito o fallo")
 	public @ResponseBody String updateProyectoAll(@PathVariable Integer ident,
 			@RequestBody HashMap<String,HashMap<String, String>> cuerpo) {
 		
